@@ -13,6 +13,6 @@ public class Usuario {
     private String nombre;
     @Column(unique = true)
     private String correo;
-    private String contraseña;
+    private String contrasena;
     private String rol; // ADMIN, RECEPCIONISTA, CLIENTE
 }

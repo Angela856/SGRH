@@ -1,17 +1,19 @@
 package cl.duocuc.dsy1103.hotel.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
-@Table(name = "habitaciones")
 @Data
-public class Habitacion {
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numero;
-    private String tipo; 
-    private Double precioNoche;
-    private Boolean disponible;
+    
+    @NotBlank
+    private String nombre;
+    
+    private String direccion;
+    private String estrellas;
 }
