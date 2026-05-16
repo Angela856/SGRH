@@ -1,4 +1,4 @@
-package cl.duocuc.dsy1103.reserva.exception;
+package cl.duocuc.dsy1103.hotel.exception;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import cl.duocuc.dsy1103.reserva.dto.ApiErrorResponse;
+import cl.duocuc.dsy1103.hotel.dto.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 

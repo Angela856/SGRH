@@ -2,25 +2,21 @@ package cl.duocuc.dsy1103.hotel.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class HotelRequest {
-    @NotBlank(message = "Hotel name is required")
-    @Size(max = 100, message = "Hotel name must be at most 100 characters")
-    private String name;
+    @NotBlank(message = "El nombre del hotel es requerido")
+    @Size(max = 100, message = "El nombre debe tener máximo 100 caracteres")
+    private String nombre;
 
-    @NotBlank(message = "Address is required")
-    @Size(max = 255, message = "Address must be at most 255 characters")
-    private String address;
+    @NotBlank(message = "La dirección es requerida")
+    @Size(max = 255, message = "La dirección debe tener máximo 255 caracteres")
+    private String direccion;
 
-    @NotBlank(message = "Stars rating is required")
-    @Size(max = 10, message = "Stars rating length is invalid")
-    private String stars;
+    @NotBlank(message = "La calificación por estrellas es requerida")
+    @Size(max = 10, message = "Largo de estrellas inválido")
+    private String estrellas;
 }

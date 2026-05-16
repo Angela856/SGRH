@@ -1,28 +1,23 @@
 package cl.duocuc.dsy1103.reserva.dto;
 
 import java.time.LocalDate;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor 
+
 public class ReservaRequest {
-    @NotNull(message = "User ID is required")
-    private Long userId;
+    @NotNull(message = "El id de usuario es requerido")
+    private Long idUsuario;
 
-    @NotNull(message = "Room ID is required")
-    private Long roomId;
+    @NotNull(message = "El id de habitación es requerido")
+    private Long idHabitacion;
 
-    @NotNull(message = "Start date is required")
-    @FutureOrPresent(message = "Start date must be today or in the future")
-    private LocalDate startDate;
+    @NotNull(message = "La fecha de inicio es requerida")
+    private LocalDate fechaInicio;
 
-    @NotNull(message = "End date is required")
-    private LocalDate endDate;
+    @NotNull(message = "La fecha de fin es requerida")
+    private LocalDate fechaFin;
 }

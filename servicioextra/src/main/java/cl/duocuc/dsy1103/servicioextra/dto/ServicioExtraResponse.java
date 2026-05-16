@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ServicioExtraResponse {
     private Long id;
-    private String description;
-    private Double price;
+    private String descripcion;
+    private Double precio;
     private LocalDateTime createdAt;
 }

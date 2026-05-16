@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PagoResponse {
     private Long id;
-    private Long reservationId;
-    private Double amount;
-    private String paymentMethod;
-    private String status; // Ejemplo: APPROVED, REJECTED
-    private LocalDateTime paymentDate;
+    private Long idReserva;
+    private Double monto;
+    private String metodo;
+    private String estado; // Ejemplo: APPROVED, REJECTED
+    private LocalDateTime fechaPago;
 }

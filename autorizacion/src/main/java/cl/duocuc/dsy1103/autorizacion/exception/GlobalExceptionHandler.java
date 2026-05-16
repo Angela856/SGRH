@@ -1,23 +1,25 @@
-package cl.duocuc.dsy1103.reserva.exception;
+package cl.duocuc.dsy1103.autorizacion.exception;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import cl.duocuc.dsy1103.reserva.dto.ApiErrorResponse;
+
+import cl.duocuc.dsy1103.autorizacion.dto.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 @Slf4j
-
 public class GlobalExceptionHandler {
-@ExceptionHandler(DataIntegrityViolationException.class)
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex,
             HttpServletRequest request) {

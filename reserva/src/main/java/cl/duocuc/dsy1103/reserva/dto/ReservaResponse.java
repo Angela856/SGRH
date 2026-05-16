@@ -2,21 +2,15 @@ package cl.duocuc.dsy1103.reserva.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class ReservaResponse {
     private Long id;
-    private Long userId;
-    private Long roomId;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String status;
+    private Long idUsuario;
+    private Long idHabitacion;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private String estado;
     private LocalDateTime createdAt;
 }
