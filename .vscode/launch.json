@@ -9,6 +9,16 @@
             "projectName": "autorizacion",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ComentarioApplication<comentario>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.comentario.ComentarioApplication",
+            "projectName": "comentario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
