@@ -47,7 +47,7 @@ public class HotelService {
 
         existingHotel.setNombre(request.getNombre());
         existingHotel.setDireccion(request.getDireccion());
-        existingHotel.setEstrellas(request.getEstrellas()); // Error corregido aquí
+        existingHotel.setEstrellas(request.getEstrellas()); 
 
         Hotel updatedHotel = repository.save(existingHotel);
         return mapper.toResponse(updatedHotel);

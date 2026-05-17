@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class PagoRequest {
-    @NotNull(message = "Reservation ID is required")
+    @NotNull(message = "Se requiere el ID de la reserva")
     private Long idReserva;
 
-    @NotNull(message = "Amount is required")
-    @Positive(message = "Amount must be greater than zero")
+    @NotNull(message = "Se requiere la cantidad")
+    @Positive(message = "La cantidad debe ser mayor que cero")
     private Double monto;
 
-    @NotBlank(message = "Payment method is required")
+    @NotBlank(message = "Se requiere método de pago")
     private String metodo; // Ejemplo: TRANSBANK, PAYPAL
 }

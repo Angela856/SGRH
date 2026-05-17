@@ -35,7 +35,6 @@ public class AutorizacionService {
     }
 
     public AuthResponse crearUsuario(AuthRequest request) {
-        // CORREGIDO: Se cambia request.getEmail() por request.getCorreo()
         log.info("Creando un nuevo usuario: {}", request.getCorreo());
         Usuario usuario = repository.save(mapper.toEntity(request));
         return mapper.toResponse(usuario);
@@ -62,7 +61,7 @@ public class AutorizacionService {
         repository.deleteById(id);
     }
 
-    // Método necesario para dar soporte al controlador que tienes implementado
+    // Método necesario para dar soporte al controlador 
     public boolean login(String correo, String contrasena) {
         log.info("Intentando iniciar sesión para el correo: {}", correo);
         return repository.findByCorreo(correo)

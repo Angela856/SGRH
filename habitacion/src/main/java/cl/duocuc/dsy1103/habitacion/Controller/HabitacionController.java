@@ -11,7 +11,7 @@ import cl.duocuc.dsy1103.habitacion.Service.HabitacionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/habitaciones")
+@RequestMapping("/api/habitaciones")
 
 public class HabitacionController {
 

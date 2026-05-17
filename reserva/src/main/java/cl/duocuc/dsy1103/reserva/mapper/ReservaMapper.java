@@ -29,7 +29,7 @@ public class ReservaMapper {
                 .fechaInicio(entity.getFechaInicio())
                 .fechaFin(entity.getFechaFin())
                 .estado(entity.getEstado())
-                .createdAt(LocalDateTime.now()) // O mapear desde tu entidad si agregas el campo
+                .createdAt(LocalDateTime.now()) 
                 .build();
     }
 }

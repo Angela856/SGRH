@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Table(name = "pagos")
 @Data
-@Builder // ¡Esta es la que soluciona el error de tu PagoMapper!
+@Builder 
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pago {
@@ -16,7 +16,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Long idReserva;      // Valida la existencia contra Reserva por WebClient
+    private Long idReserva;     
     
     private Double monto;
     

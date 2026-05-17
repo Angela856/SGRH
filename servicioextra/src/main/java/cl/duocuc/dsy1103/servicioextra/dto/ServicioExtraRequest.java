@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ServicioExtraRequest {
-    @NotBlank(message = "Description is required")
-    @Size(max = 255, message = "Description must be at most 255 characters")
+    @NotBlank(message = "Se requiere descripción")
+    @Size(max = 255, message = "La descripción debe tener como máximo 255 caracteres")
     private String descripcion;
 
-    @NotNull(message = "Price is required")
-    @Positive(message = "Price must be greater than zero")
+    @NotNull(message = "Se requiere precio")
+    @Positive(message = "El precio debe ser mayor que cero")
     private Double precio;
 }

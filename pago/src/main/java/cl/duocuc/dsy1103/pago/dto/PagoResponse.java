@@ -15,6 +15,6 @@ public class PagoResponse {
     private Long idReserva;
     private Double monto;
     private String metodo;
-    private String estado; // Ejemplo: APPROVED, REJECTED
+    private String estado; 
     private LocalDateTime fechaPago;
 }

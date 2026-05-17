@@ -6,7 +6,7 @@ import lombok.*;
 @Entity
 @Table(name = "hoteles")
 @Data
-@Builder // Habilita el uso de .builder() en HotelMapper
+@Builder 
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hotel {

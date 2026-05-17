@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Table(name = "reservas")
 @Data
-@Builder // Habilita el uso de .builder() en ReservaMapper
+@Builder 
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reserva {
@@ -16,13 +16,13 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Long idUsuario;      // Conectará síncronamente con Autorizacion por WebClient
+    private Long idUsuario;      
     
-    private Long idHabitacion;   // Conectará síncronamente con Hotel por WebClient
+    private Long idHabitacion;   
     
     private LocalDate fechaInicio;
     
     private LocalDate fechaFin;
     
-    private String estado;       // PENDIENTE, CONFIRMADA, CANCELADA
+    private String estado;       // PENDIENTE, CONFIRMADO, CANCELADO
 }

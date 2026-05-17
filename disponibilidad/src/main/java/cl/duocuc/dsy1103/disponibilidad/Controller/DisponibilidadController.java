@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/disponibilidad")
+@RequestMapping("/api/disponibilidad")
 
 public class DisponibilidadController {
 @Autowired

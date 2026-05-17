@@ -6,7 +6,7 @@ import lombok.*;
 @Entity
 @Table(name = "servicios_extras")
 @Data
-@Builder // Habilita el uso de .builder() en ServicioExtraMapper
+@Builder 
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServicioExtra {
@@ -15,7 +15,7 @@ public class ServicioExtra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Long idReserva;      // Valida la existencia contra Reserva por WebClient
+    private Long idReserva;      
     
     private String descripcion;  
     

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tarifa")
+@RequestMapping("/api/tarifa")
 
 public class TarifaController {
 
