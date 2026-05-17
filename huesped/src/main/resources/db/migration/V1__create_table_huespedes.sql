@@ -1,0 +1,6 @@
+CREATE TABLE huespedes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL UNIQUE,
+    documento_identidad VARCHAR(255) NOT NULL
+);
