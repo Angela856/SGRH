@@ -8,7 +8,8 @@
             "mainClass": "cl.duocuc.dsy1103.autorizacion.AutorizacionApplication",
             "projectName": "autorizacion",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=62937 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=autorizacion"
         },
         {
             "type": "java",
@@ -17,6 +18,87 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "cl.duocuc.dsy1103.comentario.ComentarioApplication",
             "projectName": "comentario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=62474 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=comentario"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DisponibilidadApplication<disponibilidad>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.disponibilidad.DisponibilidadApplication",
+            "projectName": "disponibilidad",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HabitacionApplication<habitacion>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.habitacion.HabitacionApplication",
+            "projectName": "habitacion",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HotelApplication<hotel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.hotel.HotelApplication",
+            "projectName": "hotel",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HuespedApplication<huesped>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.huesped.HuespedApplication",
+            "projectName": "huesped",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PagoApplication<pago>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.pago.PagoApplication",
+            "projectName": "pago",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ReservaApplication<reserva>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.reserva.ReservaApplication",
+            "projectName": "reserva",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ServicioextraApplication<servicioextra>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.servicioextra.ServicioextraApplication",
+            "projectName": "servicioextra",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TarifaApplication<tarifa>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duocuc.dsy1103.tarifa.TarifaApplication",
+            "projectName": "tarifa",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
