@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex,
             HttpServletRequest request) {
-        log.error("Data integrity violation: {}", ex.getMessage());
+        log.error("Violación de integridad de datos: {}", ex.getMessage());
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.CONFLICT.value())
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ApiErrorResponse> handleNoSuchElementException(NoSuchElementException ex,
             HttpServletRequest request) {
-        log.error("Entity not found: {}", ex.getMessage());
+        log.error("Entidad no encontrada: {}", ex.getMessage());
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.NOT_FOUND.value())
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex,
             HttpServletRequest request) {
-        log.error("Invalid request: {}", ex.getMessage());
+        log.error("Petición inválida (Errores de validación): {}", ex.getMessage());
         List<String> errors = ex.getBindingResult().getFieldErrors().stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .toList();
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ApiErrorResponse> handleIllegalStateException(IllegalStateException ex,
             HttpServletRequest request) {
-        log.error("Illegal state: {}", ex.getMessage());
+        log.error("Estado ilegal en el flujo: {}", ex.getMessage());
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.CONFLICT.value())
@@ -79,10 +79,25 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 
+    @ExceptionHandler(org.springframework.web.client.HttpClientErrorException.NotFound.class)
+    public ResponseEntity<ApiErrorResponse> handleRestClientNotFoundException(
+            org.springframework.web.client.HttpClientErrorException.NotFound ex,
+            HttpServletRequest request) {
+        log.error("Error en comunicación inter-servicio: La reserva consultada no existe");
+        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("RESERVA_NO_ENCONTRADA")
+                .message("No se puede registrar el pago: La reserva asociada no existe en el sistema.")
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiErrorResponse> handleRuntimeException(RuntimeException ex,
             HttpServletRequest request) {
-        log.error("Unexpected error: {}", ex.getMessage());
+        log.error("Error inesperado en el servidor: {}", ex.getMessage());
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
