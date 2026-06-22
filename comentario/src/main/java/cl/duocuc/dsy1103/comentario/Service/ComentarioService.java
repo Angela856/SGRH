@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
 public class ComentarioService {
 
- @Autowired
+@Autowired
     private ComentarioRepository repository;
 
     public ComentarioDTO guardar(ComentarioDTO dto) {
@@ -33,9 +32,16 @@ public class ComentarioService {
     }
 
     public List<ComentarioDTO> listarPorHabitacion(Long habitacionId) {
-        return repository.findByHabitacionId(habitacionId).stream()
+        List<Comentario> comentarios = repository.findByHabitacionId(habitacionId);
+        
+      
+        if (comentarios.isEmpty()) {
+            throw new IllegalArgumentException("No se encontraron comentarios registrados para la habitación con ID: " + habitacionId);
+        }
+
+        return comentarios.stream()
                 .map(c -> new ComentarioDTO(c.getId(), c.getHabitacionId(), c.getHuespedId(), c.getTexto(), c.getCalificacion()))
                 .collect(Collectors.toList());
     }
-}   
+}
 

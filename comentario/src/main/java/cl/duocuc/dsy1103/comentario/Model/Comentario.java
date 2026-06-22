@@ -13,13 +13,20 @@ import lombok.NoArgsConstructor;
 public class Comentario {
 
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-private Long habitacionId;
-private Long huespedId;
-private String texto;
-private int calificacion;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "habitacion_id", nullable = false)
+    private Long habitacionId;
+
+    @Column(name = "huesped_id", nullable = false)
+    private Long huespedId;
+
+
+    @Column(name = "texto", nullable = false, length = 500)
+    private String texto;
+
+    
+    @Column(name = "calificacion", nullable = false)
+    private Integer calificacion;
 }
-
-
-

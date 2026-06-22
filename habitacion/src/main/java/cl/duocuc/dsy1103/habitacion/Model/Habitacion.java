@@ -1,30 +1,31 @@
 package cl.duocuc.dsy1103.habitacion.Model;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "habitaciones")
 @Data
-
+@AllArgsConstructor 
+@NoArgsConstructor
 public class Habitacion {
 
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@NotBlank(message = "El número de habitación es obligatorio")
-@Column(name = "numero_habitacion")
-private String numero;
+    // CORRECCIÓN: Trasladamos la validación estética al DTO y dejamos la restricción física de BD aquí
+    @Column(name = "numero_habitacion", nullable = false)
+    private String numero;
 
-@NotNull(message = "El ID del hotel es obligatorio")
-@Column(name = "hotel_id")
-private Long hotelId;
+    @Column(name = "hotel_id", nullable = false)
+    private Long hotelId;
 
-@NotBlank(message = "El tipo de habitación es obligatorio (Ej: SIMPLE, DOBLE, SUITE)")
-private String tipo;
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
 
-private Double precioBase;
-
+    // CORRECCIÓN: Ya está con 'Double' mayúscula, lo cual es excelente para evitar líneas amarillas
+    @Column(name = "precio_base", nullable = false)
+    private Double precioBase;
 }

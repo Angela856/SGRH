@@ -1,4 +1,6 @@
-INSERT INTO tarifas (habitacion_id, precio_noche, temporada) VALUES
-(1, 45000.0, 'Baja'),
-(2, 85000.0, 'Alta - Vacaciones de Invierno'),
-(3, 150000.0, 'Alta - Año Nuevo');
+CREATE TABLE tarifas (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    habitacion_id BIGINT NOT NULL,
+    precio_noche DOUBLE NOT NULL,
+    temporada VARCHAR(255) NOT NULL
+);

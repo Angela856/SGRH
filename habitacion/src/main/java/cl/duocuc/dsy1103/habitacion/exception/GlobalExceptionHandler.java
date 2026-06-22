@@ -1,4 +1,5 @@
 package cl.duocuc.dsy1103.habitacion.exception;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -6,9 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-@ControllerAdvice 
-public class GlobalExceptionHandler {
 
+@ControllerAdvice
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -18,15 +19,26 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         });
         
-        // Retorna un JSON con los errores y código HTTP 400 [cite: 70]
         return ResponseEntity.badRequest().body(errors);
     }
 
-    // Captura errores generales para que la app no muestre código interno
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception ex) {
-        return ResponseEntity.status(500).body("Error interno en el servidor: " + ex.getMessage());
+   
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Recurso No Encontrado");
+        errorResponse.put("mensaje", ex.getMessage());
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-
+    // 3. Captura errores genéricos inesperados del sistema y responde 500 Internal Server Error
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleAllExceptions(Exception ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Error Interno del Servidor");
+        errorResponse.put("mensaje", "Ocurrió un problema inesperado: " + ex.getMessage());
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
 }
