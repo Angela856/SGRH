@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.autorizacion.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cl.duocuc.dsy1103.autorizacion.dto.AuthRequest;
 import cl.duocuc.dsy1103.autorizacion.dto.AuthResponse;
@@ -15,11 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AutorizacionService {
 
-    @Autowired
-    private UsuarioRepository repository;
+    private final UsuarioRepository repository;
 
-    @Autowired
-    private AuthMapper mapper;
+    private final AuthMapper mapper;
+
+    AutorizacionService(UsuarioRepository repository, AuthMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public List<AuthResponse> obtenerTodosLosUsuarios() {
         log.info("Obteniendo la lista de todos los usuarios");

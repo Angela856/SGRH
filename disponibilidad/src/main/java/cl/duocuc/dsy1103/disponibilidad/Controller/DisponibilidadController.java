@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +23,11 @@ import java.util.List;
 
 public class DisponibilidadController {
 
-    @Autowired
-    private DisponibilidadService service;
+    private final DisponibilidadService service;
+
+    DisponibilidadController(DisponibilidadService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Registrar disponibilidad o bloqueo", description = "Asigna un rango de fechas y un estado (Disponible, Ocupada, Mantenimiento) a una habitación.")
     @ApiResponses(value = {
