@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,11 @@ import java.util.List;
 @Tag(name = "Comentarios", description = "Operaciones relacionadas con las reseñas y calificaciones de las habitaciones")
 
 public class ComentarioController {
-@Autowired
-    private ComentarioService service;
+private final ComentarioService service;
+
+    ComentarioController(ComentarioService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Crear un nuevo comentario", description = "Registra una reseña y una calificación de estrellas para una habitación específica.")
     @ApiResponses(value = {

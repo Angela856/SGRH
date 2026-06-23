@@ -4,7 +4,6 @@ import cl.duocuc.dsy1103.pago.dto.PagoRequest;
 import cl.duocuc.dsy1103.pago.dto.PagoResponse;
 import cl.duocuc.dsy1103.pago.service.PagoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/pagos")
 public class PagoController {
 
-    @Autowired
-    private PagoService service;
+    private final PagoService service;
+
+    PagoController(PagoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<PagoResponse> obtenerTodos() {

@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +20,11 @@ import java.util.List;
 @Tag(name = "Tarifas", description = "Operaciones relacionadas con la administración y cálculo de costos por habitación")
 public class TarifaController {
 
-@Autowired
-    private TarifaService service;
+private final TarifaService service;
+
+    TarifaController(TarifaService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Crear una nueva tarifa", description = "Registra una tarifa asociada a un tipo de habitación con validaciones preventivas de precios.")
     @ApiResponses(value = {

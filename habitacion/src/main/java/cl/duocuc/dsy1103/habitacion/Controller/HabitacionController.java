@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +19,11 @@ import java.util.List;
 @Tag(name = "Habitación", description = "Endpoints para la gestión, registro y consulta de habitaciones del complejo hotelero")
 
 public class HabitacionController {
-@Autowired
-    private HabitacionService service;
+private final HabitacionService service;
+
+    HabitacionController(HabitacionService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Registrar una nueva habitación", description = "Crea una pieza hotelera enlazada a un hotel específico.")
     @ApiResponses(value = {

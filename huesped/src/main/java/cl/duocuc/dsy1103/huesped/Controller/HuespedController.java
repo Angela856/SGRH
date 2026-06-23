@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.huesped.Controller;
 
 import cl.duocuc.dsy1103.huesped.DTO.HuespedDTO;
 import cl.duocuc.dsy1103.huesped.Service.HuespedService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 
 public class HuespedController {
 
-@Autowired
-    private HuespedService service;
+private final HuespedService service;
+
+    HuespedController(HuespedService service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<HuespedDTO> crear(@RequestBody HuespedDTO dto) {

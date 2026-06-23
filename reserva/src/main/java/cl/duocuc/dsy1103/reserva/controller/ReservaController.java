@@ -4,7 +4,6 @@ import cl.duocuc.dsy1103.reserva.dto.ReservaRequest;
 import cl.duocuc.dsy1103.reserva.dto.ReservaResponse;
 import cl.duocuc.dsy1103.reserva.service.ReservaService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/reservas")
 public class ReservaController {
 
-    @Autowired
-    private ReservaService service;
+    private final ReservaService service;
+
+    ReservaController(ReservaService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<ReservaResponse> obtenerTodas() {

@@ -4,7 +4,6 @@ import cl.duocuc.dsy1103.servicioextra.dto.ServicioExtraRequest;
 import cl.duocuc.dsy1103.servicioextra.dto.ServicioExtraResponse;
 import cl.duocuc.dsy1103.servicioextra.service.ServicioExtraService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/servicios-extras")
 public class ServicioExtraController {
 
-    @Autowired
-    private ServicioExtraService service;
+    private final ServicioExtraService service;
+
+    ServicioExtraController(ServicioExtraService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<ServicioExtraResponse> listarTodos() {

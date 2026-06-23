@@ -4,7 +4,6 @@ import cl.duocuc.dsy1103.hotel.dto.HotelRequest;
 import cl.duocuc.dsy1103.hotel.dto.HotelResponse;
 import cl.duocuc.dsy1103.hotel.service.HotelService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/hoteles")
 public class HotelController {
 
-    @Autowired
-    private HotelService service;
+    private final HotelService service;
+
+    HotelController(HotelService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<HotelResponse> obtenerTodos() {
