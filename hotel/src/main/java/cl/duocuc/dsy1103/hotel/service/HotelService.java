@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.hotel.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cl.duocuc.dsy1103.hotel.dto.HotelRequest;
 import cl.duocuc.dsy1103.hotel.dto.HotelResponse;
@@ -15,11 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HotelService {
 
-    @Autowired
-    private HotelRepository repository;
+    private final HotelRepository repository;
 
-    @Autowired
-    private HotelMapper mapper;
+    private final HotelMapper mapper;
+
+    HotelService(HotelMapper mapper, HotelRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
     public List<HotelResponse> obtenerTodosLosHoteles() {
         log.info("Obteniendo la lista de todos los hoteles");

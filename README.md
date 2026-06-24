@@ -1,4 +1,4 @@
-# 🏨 Sistema de Gestión de Reserva Hotelera (SGRH)
+#  Sistema de Gestión de Reserva Hotelera (SGRH)
 
 ## Avance Técnico Consolidado y Formal - Evaluación 3
 **Asignatura:** Desarrollo FullStack 1 (DSY1103)  
@@ -7,12 +7,12 @@
 
 ---
 
-## 📄 Descripción General del Proyecto
+##  Descripción General del Proyecto
 Este ecosistema distribuido ha sido diseñado bajo una arquitectura de **Microservicios** independientes para la administración automatizada de operaciones hoteleras. El sistema resuelve de forma nativa problemáticas de concurrencia, alta disponibilidad y acoplamiento mediante la separación estricta de dominios de negocio, garantizando persistencia real aislada y modularidad absoluta en la lógica empresarial.
 
 ---
 
-## 🛠️ Tecnologías Aplicadas
+##  Tecnologías Aplicadas
 * **Spring Boot 3 (Java):** Framework core para la construcción de los microservicios corporativos y reactivos.
 * **Spring Cloud Gateway:** Enrutador y punto único de entrada perimetral que centraliza la seguridad y los prefijos de rutas REST.
 * **Spring HATEOAS:** Mecanismo hipermedia para añadir madurez RESTful (*Hypermedia As The Engine Of Application State*) mediante enlaces dinámicos `_links`.
@@ -26,7 +26,7 @@ Este ecosistema distribuido ha sido diseñado bajo una arquitectura de **Microse
 
 ---
 
-## 🏛️ Justificación de Decisiones de Arquitectura
+##  Justificación de Decisiones de Arquitectura
 El sistema implementa de manera rigurosa las directrices de la escuela de informática y los estándares globales de desarrollo de software:
 
 1. **Patrón CSR (Controller-Service-Repository):** Cada microservicio implementa una separación física estricta de paquetes, aislando las responsabilidades operativas:
@@ -38,7 +38,7 @@ El sistema implementa de manera rigurosa las directrices de la escuela de inform
 
 ---
 
-## 🗺️ Mapa Arquitectónico de Puertos, Rutas y Esquemas
+##  Mapa Arquitectónico de Puertos, Rutas y Esquemas
 
 Toda la interacción del cliente se realiza exclusivamente a través del **API Gateway** en el puerto `8080`. Este se encarga de redirigir los prefijos de rutas internas a cada contenedor de servicio local:
 
@@ -58,7 +58,7 @@ Toda la interacción del cliente se realiza exclusivamente a través del **API G
 
 ---
 
-## 📈 Cumplimiento de Criterios Avanzados (Evaluación 3)
+##  Cumplimiento de Criterios Avanzados (Evaluación 3)
 
 ### 1. Documentación Viva con Swagger/OpenAPI 3
 Se integraron metadatos explícitos en los controladores y DTOs principales utilizando anotaciones como `@Tag`, `@Operation`, y `@Schema`.
@@ -78,7 +78,7 @@ Se implementaron suites de pruebas en la ruta lógica de test (`src/test/java`).
 
 ---
 
-## ⚙️ Especificación Técnica del Enrutador Perimetral (`Gateway application.yml`)
+##  Especificación Técnica del Enrutador Perimetral (`Gateway application.yml`)
 
 El archivo de configuración unificado del microservicio de Gateway organiza el tráfico distribuido de la siguiente forma:
 
