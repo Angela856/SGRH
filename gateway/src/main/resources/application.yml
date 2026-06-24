@@ -48,7 +48,11 @@ spring:
           uri: http://localhost:8086  
           predicates:
             - Path=/api/tarifa/**
-          
+
+        - id: comentario-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/comentario/**
           filters:
             - AddResponseHeader=X-Gateway-Time, Development-Environment
         
