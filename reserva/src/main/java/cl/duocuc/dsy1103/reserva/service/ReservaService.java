@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.reserva.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient; 
@@ -17,19 +16,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReservaService {
 
-    @Autowired
-    private ReservaRepository repository;
-
-    @Autowired
-    private ReservaMapper mapper;
-
-    @Autowired
-    @Qualifier("authRestClient")
-    private RestClient authRestClient;
-
-    @Autowired
-    @Qualifier("hotelRestClient")
-    private RestClient hotelRestClient;
+    private final ReservaRepository repository;
+    private final ReservaMapper mapper;
+    private final RestClient authRestClient;
+    private final RestClient hotelRestClient;
+    
+    ReservaService(
+            ReservaRepository repository, 
+            ReservaMapper mapper, 
+            @Qualifier("authRestClient") RestClient authRestClient, 
+            @Qualifier("hotelRestClient") RestClient hotelRestClient
+    ) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.authRestClient = authRestClient;
+        this.hotelRestClient = hotelRestClient;
+    }
 
     public List<ReservaResponse> obtenerTodasLasReservas() {
         log.info("Obteniendo la lista de todas las reservas");

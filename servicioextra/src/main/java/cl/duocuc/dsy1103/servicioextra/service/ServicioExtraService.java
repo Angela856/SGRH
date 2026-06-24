@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.servicioextra.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -17,15 +16,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ServicioExtraService {
 
-    @Autowired
-    private ServicioExtraRepository repository;
+    private final ServicioExtraRepository repository;
 
-    @Autowired
-    private ServicioExtraMapper mapper;
+    private final ServicioExtraMapper mapper;
 
-    @Autowired
     @Qualifier("reservaRestClient")
-    private RestClient reservaRestClient;
+    private final RestClient reservaRestClient;
+
+    ServicioExtraService(ServicioExtraRepository repository, ServicioExtraMapper mapper, RestClient reservaRestClient) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.reservaRestClient = reservaRestClient;
+    }
 
     public List<ServicioExtraResponse> obtenerTodosLosServicios() {
         log.info("Obteniendo la lista de todos los servicios adicionales");

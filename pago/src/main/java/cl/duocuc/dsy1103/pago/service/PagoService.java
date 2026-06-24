@@ -2,7 +2,6 @@ package cl.duocuc.dsy1103.pago.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -17,15 +16,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PagoService {
 
-    @Autowired
-    private PagoRepository repository;
+    private final PagoRepository repository;
 
-    @Autowired
-    private PagoMapper mapper;
+    private final PagoMapper mapper;
 
-    @Autowired
     @Qualifier("reservaRestClient")
-    private RestClient reservaRestClient;
+    private final RestClient reservaRestClient;
+
+    PagoService(PagoRepository repository, PagoMapper mapper, RestClient reservaRestClient) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.reservaRestClient = reservaRestClient;
+    }
 
     public List<PagoResponse> obtenerTodosLosPagos() {
         log.info("Obteniendo la lista de todos los pagos");

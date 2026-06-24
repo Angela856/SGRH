@@ -26,9 +26,9 @@ public class HotelMapper {
         }
         return HotelResponse.builder()
                 .id(entity.getId())
-                .name(entity.getNombre())
-                .address(entity.getDireccion())
-                .stars(entity.getEstrellas())
+                .nombre(entity.getNombre())
+                .direccion(entity.getDireccion())
+                .estrellas(entity.getEstrellas())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
