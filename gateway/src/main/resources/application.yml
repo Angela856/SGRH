@@ -30,8 +30,28 @@ spring:
           uri: http://localhost:8089
           predicates:
             - Path=/api/pagos/**
+        - id: huesped-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/huesped/**
+
+        - id: habitacion-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/habitacion/**
+
+        - id: disponibilidad-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/disponibilidad/**
+        - id: tarifa-service
+          uri: http://localhost:8086  
+          predicates:
+            - Path=/api/tarifa/**
+          
           filters:
             - AddResponseHeader=X-Gateway-Time, Development-Environment
+        
 
 server:
   port: 8080
