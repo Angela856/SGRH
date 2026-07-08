@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: disponibilidad-service
+  profiles:
+    active: dev
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui.html
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_disponibilidad?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: "" # Vacío para Laragon
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # 'update' para que cree tus tablas automáticamente en Laragon si no existen
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8085
+
+# Configuración del endpoint remoto para tu RestClient (Ambiente Local)
+servicios:
+  habitacion:
+    url: http://localhost:8084/api/habitacion
+
+# Configuración de Logs
+logging:
+  level:
+    cl:
+      duocuc:
+        dsy1103: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:db_disponibilidad}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USER:root}
+    password: ${DB_PASS:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # En producción solo validamos la estructura
+    show-sql: false
+
+server:
+  port: ${PORT:8085}
+
+# Configuración del endpoint remoto para tu RestClient (Ambiente Productivo / Docker / Cloud)
+servicios:
+  habitacion:
+    url: ${HABITACION_SERVICE_URL:http://habitacion-service:8084/api/habitacion}
