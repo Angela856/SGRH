@@ -2,9 +2,9 @@ package cl.duocuc.dsy1103.pago.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+
+import cl.duocuc.dsy1103.pago.client.ReservaClient;
 import cl.duocuc.dsy1103.pago.dto.PagoRequest;
 import cl.duocuc.dsy1103.pago.dto.PagoResponse;
 import cl.duocuc.dsy1103.pago.mapper.PagoMapper;
@@ -17,16 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 public class PagoService {
 
     private final PagoRepository repository;
-
     private final PagoMapper mapper;
+    private final ReservaClient reservaClient;
 
-    @Qualifier("reservaRestClient")
-    private final RestClient reservaRestClient;
-
-    PagoService(PagoRepository repository, PagoMapper mapper, RestClient reservaRestClient) {
+    // El constructor ahora recibe de forma limpia nuestro ReservaClient
+    public PagoService(PagoRepository repository, PagoMapper mapper, ReservaClient reservaClient) {
         this.repository = repository;
         this.mapper = mapper;
-        this.reservaRestClient = reservaRestClient;
+        this.reservaClient = reservaClient;
     }
 
     public List<PagoResponse> obtenerTodosLosPagos() {
@@ -43,13 +41,10 @@ public class PagoService {
     }
 
     public PagoResponse crearPago(PagoRequest request) {
-        log.info("Registrando pago. Verificando reserva mediante RestClient...");
+        log.info("Registrando pago. Verificando reserva mediante cliente dedicado...");
         
-        // Validación síncrona moderna con RestClient
-        reservaRestClient.get()
-                .uri("/api/reservas/{id}", request.getIdReserva())
-                .retrieve()
-                .toBodilessEntity();
+        // Delegamos de forma limpia la llamada de red a la capa Client con try-catch integrado
+        reservaClient.obtenerReservaPorId(request.getIdReserva());
 
         Pago pago = repository.save(mapper.toEntity(request));
         return mapper.toResponse(pago);

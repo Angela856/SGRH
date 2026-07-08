@@ -2,9 +2,10 @@ package cl.duocuc.dsy1103.reserva.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient; 
+
+import cl.duocuc.dsy1103.reserva.client.AuthClient;
+import cl.duocuc.dsy1103.reserva.client.HotelClient;
 import cl.duocuc.dsy1103.reserva.dto.ReservaRequest;
 import cl.duocuc.dsy1103.reserva.dto.ReservaResponse;
 import cl.duocuc.dsy1103.reserva.mapper.ReservaMapper;
@@ -18,19 +19,19 @@ public class ReservaService {
 
     private final ReservaRepository repository;
     private final ReservaMapper mapper;
-    private final RestClient authRestClient;
-    private final RestClient hotelRestClient;
+    private final AuthClient authClient;
+    private final HotelClient hotelClient;
     
-    ReservaService(
+    public ReservaService(
             ReservaRepository repository, 
             ReservaMapper mapper, 
-            @Qualifier("authRestClient") RestClient authRestClient, 
-            @Qualifier("hotelRestClient") RestClient hotelRestClient
+            AuthClient authClient, 
+            HotelClient hotelClient
     ) {
         this.repository = repository;
         this.mapper = mapper;
-        this.authRestClient = authRestClient;
-        this.hotelRestClient = hotelRestClient;
+        this.authClient = authClient;
+        this.hotelClient = hotelClient;
     }
 
     public List<ReservaResponse> obtenerTodasLasReservas() {
@@ -47,18 +48,11 @@ public class ReservaService {
     }
 
     public ReservaResponse crearReserva(ReservaRequest request) {
-        log.info("Creando una nueva reserva. Validando mediante RestClient...");
+        log.info("Creando una nueva reserva. Validando mediante infraestructura Client...");
         
-        
-        authRestClient.get()
-                .uri("/api/auth/{id}", request.getIdUsuario())
-                .retrieve()
-                .toBodilessEntity(); // Levanta excepción automática si el ID no existe (404/500)
-
-        hotelRestClient.get()
-                .uri("/api/hoteles/{id}", request.getIdHabitacion())
-                .retrieve()
-                .toBodilessEntity();
+        // Llamadas desacopladas con manejo de excepciones integrado
+        authClient.obtenerUsuarioPorId(request.getIdUsuario());
+        hotelClient.validarExistenciaHotel(request.getIdHabitacion());
 
         Reserva reserva = repository.save(mapper.toEntity(request));
         return mapper.toResponse(reserva);

@@ -17,6 +17,10 @@ public class HotelMapper {
         hotel.setNombre(request.getNombre());
         hotel.setDireccion(request.getDireccion());
         hotel.setEstrellas(request.getEstrellas());
+        hotel.setNumeroHabitacion(request.getNumeroHabitacion());
+        hotel.setPrecioPorNoche(request.getPrecioPorNoche());
+        hotel.setDisponible(request.getDisponible());
+        
         return hotel;
     }
 
@@ -29,7 +33,10 @@ public class HotelMapper {
                 .nombre(entity.getNombre())
                 .direccion(entity.getDireccion())
                 .estrellas(entity.getEstrellas())
-                .createdAt(LocalDateTime.now())
+                .numeroHabitacion(entity.getNumeroHabitacion())
+                .precioPorNoche(entity.getPrecioPorNoche())
+                .disponible(entity.getDisponible())
+                .createdAt(LocalDateTime.now()) 
                 .build();
     }
 }

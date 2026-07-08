@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/hoteles")
-// 1. Agrupamos los endpoints bajo una sección clara
+// Agrupamos los endpoints bajo una sección clara
 @Tag(name = "Gestión de Hoteles", description = "Endpoints para realizar operaciones CRUD sobre las sucursales del hotel")
 public class HotelController {
 

@@ -13,11 +13,17 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Este actuará como el "idHabitacion" que busca el servicio de reservas
     
-    private String nombre;
+    private String nombre; // Ej: "Hotel Santiago - Sucursal Centro"
     
     private String direccion;
     
     private String estrellas; 
+
+    private String numeroHabitacion; // Ej: "Suite 402", "Habitación 105"
+    
+    private Double precioPorNoche; // Necesario para que el micro de Pago cobre con sentido lógico
+    
+    private Boolean disponible; // Para saber si se puede reservar o ya está ocupada
 }

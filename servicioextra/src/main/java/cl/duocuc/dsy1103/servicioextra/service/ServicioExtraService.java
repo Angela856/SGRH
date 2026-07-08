@@ -2,9 +2,9 @@ package cl.duocuc.dsy1103.servicioextra.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+
+import cl.duocuc.dsy1103.servicioextra.client.ReservaClient;
 import cl.duocuc.dsy1103.servicioextra.dto.ServicioExtraRequest;
 import cl.duocuc.dsy1103.servicioextra.dto.ServicioExtraResponse;
 import cl.duocuc.dsy1103.servicioextra.mapper.ServicioExtraMapper;
@@ -17,16 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ServicioExtraService {
 
     private final ServicioExtraRepository repository;
-
     private final ServicioExtraMapper mapper;
+    private final ReservaClient reservaClient;
 
-    @Qualifier("reservaRestClient")
-    private final RestClient reservaRestClient;
-
-    ServicioExtraService(ServicioExtraRepository repository, ServicioExtraMapper mapper, RestClient reservaRestClient) {
+    // Constructor limpio sin inyecciones directas de RestClient
+    ServicioExtraService(ServicioExtraRepository repository, ServicioExtraMapper mapper, ReservaClient reservaClient) {
         this.repository = repository;
         this.mapper = mapper;
-        this.reservaRestClient = reservaRestClient;
+        this.reservaClient = reservaClient;
     }
 
     public List<ServicioExtraResponse> obtenerTodosLosServicios() {
@@ -45,11 +43,8 @@ public class ServicioExtraService {
     public ServicioExtraResponse crearServicioExtra(ServicioExtraRequest request, Long idReserva) {
         log.info("Asociando servicio adicional a la reserva con id: {}", idReserva);
         
-        // Validación síncrona moderna con RestClient
-        reservaRestClient.get()
-                .uri("/api/reservas/{id}", idReserva)
-                .retrieve()
-                .toBodilessEntity();
+        // Delegamos la llamada HTTP de manera segura a nuestro Client dedicado
+        reservaClient.obtenerReservaPorId(idReserva);
 
         ServicioExtra servicio = mapper.toEntity(request);
         servicio.setIdReserva(idReserva);

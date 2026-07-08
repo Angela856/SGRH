@@ -23,6 +23,9 @@ public class ServicioExtraResponse {
     @Schema(description = "Monto total cobrado por la prestación del servicio", example = "35000.00")
     private Double precio;
 
+    @Schema(description = "ID de la reserva a la cual se le carga este servicio adicional", example = "10")
+    private Long idReserva;
+
     @Schema(description = "Fecha y hora exacta en la que se ingresó el consumo al sistema", example = "2026-06-23T20:15:00")
     private LocalDateTime createdAt;
 }
