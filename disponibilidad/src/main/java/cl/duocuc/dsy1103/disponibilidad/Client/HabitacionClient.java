@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface HabitacionClient {
     @GetMapping("/{id}")
-    Object verificarHabitacionExiste(@PathVariable("id") Long id);
+    
+    Boolean verificarHabitacionExiste(@PathVariable("id") Long id);
 }
 
 
