@@ -24,13 +24,16 @@ server:
   port: 8087
 
 # URL para que otros lo encuentren (Servicios externos)
-services:
+servicios:
   autorizacion:
     baseUrl: http://localhost:8081
+    url: http://localhost:8081
   huesped:
     baseUrl: http://localhost:8082
+    url: http://localhost:8082
   hotel:
     baseUrl: http://localhost:8083
+    url: http://localhost:8083
 
 # Configuración para que funcione swagger
 springdoc:
@@ -56,10 +59,13 @@ spring:
 server:
   port: ${PORT:8087}
 
-services:
+servicios:
   autorizacion:
     baseUrl: ${AUTORIZACION_SERVICE_URL:http://${DB_HOST:localhost}:8081}
+    url: ${AUTORIZACION_SERVICE_URL:http://${DB_HOST:localhost}:8081}
   huesped:
     baseUrl: ${HUESPED_SERVICE_URL:http://${DB_HOST:localhost}:8082}
+    url: ${HUESPED_SERVICE_URL:http://${DB_HOST:localhost}:8082}
   hotel:
     baseUrl: ${HOTEL_SERVICE_URL:http://${DB_HOST:localhost}:8083}
+    url: ${HOTEL_SERVICE_URL:http://${DB_HOST:localhost}:8083}

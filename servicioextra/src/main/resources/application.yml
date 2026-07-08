@@ -6,7 +6,7 @@ spring:
 
 # Configuración de Base de Datos
   datasource:
-    url: jdbc:mysql://localhost:3306/hotel_servicioextra_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/hotel_servicio_extra_db?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     password:     # En Laragon / MySQL por defecto es vacía
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -45,7 +45,7 @@ spring:
       on-profile: dev, prod
 
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:hotel_servicioextra_db}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:hotel_servicio_extra_db}?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: ${DB_USER:root}
     password: ${DB_PASS:}
 

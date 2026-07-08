@@ -1,4 +1,4 @@
-CREATE TABLE reserva (
+CREATE TABLE reservas (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     id_usuario BIGINT NOT NULL,
     id_habitacion BIGINT NOT NULL,
