@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: hotel-service
+  profiles:
+    active: dev
+
+# Configuración de Base de Datos
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotel_hotel_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password:     # En Laragon / MySQL por defecto es vacía
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Configuración del JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      "[hibernate.format_sql]": true
+
+# Puerto del microservicio
+server:
+  port: 8083
+
+# Configuración de Swagger
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev, prod
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:hotel_hotel_db}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USER:root}
+    password: ${DB_PASS:}
+
+server:
+  port: ${PORT:8083}

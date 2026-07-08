@@ -1,0 +1,253 @@
+  services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes" #${MYSQL_ROOT_PASSWORD}
+      #MYSQL_USER: spring #${MYSQL_USER}
+      #MYSQL_PASSWORD: "" #${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306" 
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${MYSQL_ROOT_PASSWORD}"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spring-cloud-net
+
+  autorizacion:
+    build:
+      context: ./autorizacion
+      dockerfile: Dockerfile
+    container_name: autorizacion-service
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_autorizacion
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  comentario:
+    build:
+      context: ./comentario
+      dockerfile: Dockerfile
+    container_name: comentario-service
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_comentario
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  disponibilidad:
+    build:
+      context: ./disponibilidad
+      dockerfile: Dockerfile
+    container_name: disponibilidad-service
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_disponibilidad
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  habitacion:
+    build:
+      context: ./habitacion
+      dockerfile: Dockerfile
+    container_name: habitacion-service
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_habitacion
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  hotel:
+    build:
+      context: ./hotel
+      dockerfile: Dockerfile
+    container_name: hotel-service
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_hotel
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  huesped:
+    build:
+      context: ./huesped
+      dockerfile: Dockerfile
+    container_name: huesped-service
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_huesped
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  pago:
+    build:
+      context: ./pago
+      dockerfile: Dockerfile
+    container_name: pago-service
+    restart: unless-stopped
+    ports:
+      - "8089:8089"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_pago
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  reserva:
+    build:
+      context: ./reserva
+      dockerfile: Dockerfile
+    container_name: reserva-service
+    restart: unless-stopped
+    ports:
+      - "8087:8087"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_reserva
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  servicioextra:
+    build:
+      context: ./servicioextra
+      dockerfile: Dockerfile
+    container_name: servicioextra-service
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_servicioextra
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+  tarifa:
+    build:
+      context: ./tarifa
+      dockerfile: Dockerfile
+    container_name: tarifa-service
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: db_hotel_tarifa
+      DB_USER: root #${MYSQL_USER}
+      DB_PASS: "" #${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+  
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_started
+    networks:
+      - spring-cloud-net
+
+volumes:
+  mysql_data:
+
+networks:
+  spring-cloud-net:
+    driver: bridge
