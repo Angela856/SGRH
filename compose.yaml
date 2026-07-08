@@ -5,8 +5,8 @@
     restart: unless-stopped
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes" #${MYSQL_ROOT_PASSWORD}
-      #MYSQL_USER: spring #${MYSQL_USER}
-      #MYSQL_PASSWORD: "" #${MYSQL_PASSWORD}
+      MYSQL_USER: spring #${MYSQL_USER}
+      MYSQL_PASSWORD: "" #${MYSQL_PASSWORD}
     ports:
       - "3307:3306" 
     volumes:
