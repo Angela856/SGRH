@@ -1,138 +1,68 @@
 server:
-  port: ${PORT:8080}
+  port: 8080
 
 spring:
   application:
     name: api-gateway-service
-  profiles:
-    active: dev
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: dev, prod
-
   cloud:
     gateway:
-      server:
-        webmvc:
-          routes:
-            # =======================================================
-            # RUTA DE DOCUMENTACIÓN (SWAGGER)
-            # =======================================================
-            - id: openapi-docs-route
-              uri: http://localhost:8080
-              predicates:
-                - Path=/api/*/v3/api-docs
-              filters:
-                - StripPrefix=2
+      routes:
+        # 1. Autorización
+        - id: ms-auth-route
+          uri: http://autorizacion-service:8081
+          predicates:
+            - Path=/api/auth/**
 
-            # =======================================================
-            # RUTAS DE LOS MICROSERVICIOS (Sincronizados con tu Compose)
-            # =======================================================
-            # 1. Autorización (Puerto 8081)
-            - id: ms-auth-route
-              uri: ${AUTH_SERVICE_URL:http://autorizacion-service:8081}
-              predicates:
-                - Path=/api/auth/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 2. Huésped
+        - id: ms-huespedes-route
+          uri: http://huesped-service:8082
+          predicates:
+            - Path=/api/huespedes/**
 
-            # 2. Huésped (Puerto 8082)
-            - id: ms-huespedes-route
-              uri: ${HUESPEDES_SERVICE_URL:http://huesped-service:8082}
-              predicates:
-                - Path=/api/huespedes/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 3. Hotel
+        - id: ms-hoteles-route
+          uri: http://hotel-service:8083
+          predicates:
+            - Path=/api/hoteles/**
 
-            # 3. Hotel (Puerto 8083)
-            - id: ms-hoteles-route
-              uri: ${HOTELES_SERVICE_URL:http://hotel-service:8083}
-              predicates:
-                - Path=/api/hoteles/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 4. Habitación
+        - id: ms-habitacion-route
+          uri: http://habitacion-service:8084
+          predicates:
+            - Path=/api/habitacion/**
 
-            # 4. Habitación (Puerto 8084)
-            - id: ms-habitacion-route
-              uri: ${HABITACION_SERVICE_URL:http://habitacion-service:8084}
-              predicates:
-                - Path=/api/habitacion/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 5. Disponibilidad
+        - id: ms-disponibilidad-route
+          uri: http://disponibilidad-service:8085
+          predicates:
+            - Path=/api/disponibilidad/**
 
-            # 5. Disponibilidad (Puerto 8085)
-            - id: ms-disponibilidad-route
-              uri: ${DISPONIBILIDAD_SERVICE_URL:http://disponibilidad-service:8085}
-              predicates:
-                - Path=/api/disponibilidad/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 6. Tarifa
+        - id: ms-tarifa-route
+          uri: http://tarifa-service:8086
+          predicates:
+            - Path=/api/tarifa/**
 
-            # 6. Tarifa (Puerto 8086)
-            - id: ms-tarifa-route
-              uri: ${TARIFA_SERVICE_URL:http://tarifa-service:8086}
-              predicates:
-                - Path=/api/tarifa/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 7. Reserva
+        - id: ms-reservas-route
+          uri: http://reserva-service:8087
+          predicates:
+            - Path=/api/reservas/**
 
-            # 7. Reserva (Puerto 8087)
-            - id: ms-reservas-route
-              uri: ${RESERVAS_SERVICE_URL:http://reserva-service:8087}
-              predicates:
-                - Path=/api/reservas/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 8. Servicio Extra
+        - id: ms-servicios-extras-route
+          uri: http://servicioextra-service:8088
+          predicates:
+            - Path=/api/servicios-extras/**
 
-            # 8. Servicio Extra (Puerto 8088)
-            - id: ms-servicios-extras-route
-              uri: ${SERVICIOS_EXTRAS_SERVICE_URL:http://servicioextra-service:8088}
-              predicates:
-                - Path=/api/servicios-extras/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
+        # 9. Pago
+        - id: ms-pagos-route
+          uri: http://pago-service:8089
+          predicates:
+            - Path=/api/pagos/**
 
-            # 9. Pago (Puerto 8089)
-            - id: ms-pagos-route
-              uri: ${PAGOS_SERVICE_URL:http://pago-service:8089}
-              predicates:
-                - Path=/api/pagos/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
-
-            # 10. Comentario (Puerto 8090)
-            - id: ms-comentario-route
-              uri: ${COMENTARIO_SERVICE_URL:http://comentario-service:8090}
-              predicates:
-                - Path=/api/comentario/**
-              filters:
-                - AddRequestHeader=X-Gateway-Source, api-gateway
-
-springdoc:
-  enable-native-support: true
-  swagger-ui:
-    urls:
-      - name: 01. Autorización
-        url: /api/auth/v3/api-docs
-      - name: 02. Huésped
-        url: /api/huespedes/v3/api-docs
-      - name: 03. Hotel
-        url: /api/hoteles/v3/api-docs
-      - name: 04. Habitación
-        url: /api/habitacion/v3/api-docs
-      - name: 05. Disponibilidad
-        url: /api/disponibilidad/v3/api-docs
-      - name: 06. Tarifa
-        url: /api/tarifa/v3/api-docs
-      - name: 07. Reserva
-        url: /api/reservas/v3/api-docs
-      - name: 08. Servicio Extra
-        url: /api/servicios-extras/v3/api-docs
-      - name: 09. Pago
-        url: /api/pagos/v3/api-docs
-      - name: 10. Comentario
-        url: /api/comentario/v3/api-docs
+        # 10. Comentario
+        - id: ms-comentario-route
+          uri: http://comentario-service:8090
+          predicates:
+            - Path=/api/comentario/**
