@@ -55,8 +55,9 @@ docker compose down
 Para detener y eliminar completamente imágenes, contenedores y volúmenes:
 ```bash
 docker compose down -v --rmi all
+---
 
-## 🌐 Mapeo de Puertos y Acceso a Documentación Swagger
+## Mapeo de Puertos y Acceso a Documentación Swagger
 
 Toda la interacción del cliente o aplicaciones externas se realiza a través del **API Gateway** en el puerto `8080`. A continuación se detallan las URLs directas para acceder a la documentación interactiva **Swagger UI** de cada microservicio:
 
@@ -73,8 +74,9 @@ Toda la interacción del cliente o aplicaciones externas se realiza a través de
 | **8** | **Servicio Extra** | `8088` | `/api/servicios-extras/**` | [Ver Swagger UI](http://localhost:8088/swagger-ui/index.html) |
 | **9** | **Pago** | `8089` | `/api/pagos/**` | [Ver Swagger UI](http://localhost:8089/swagger-ui/index.html) |
 | **10**| **Comentario** | `8090` | `/api/comentario/**` | [Ver Swagger UI](http://localhost:8090/swagger-ui/index.html) |
+---
 
-## 🧪 Cobertura de Pruebas Unitarias (JUnit 5 + Mockito)
+## Cobertura de Pruebas Unitarias (JUnit 5 + Mockito)
 
 El proyecto incluye suites de pruebas unitarias implementadas en la ruta estándar `src/test/java` de cada microservicio.
 
