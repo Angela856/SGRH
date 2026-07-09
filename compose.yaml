@@ -4,26 +4,16 @@
     container_name: mysql
     restart: unless-stopped
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes" #${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: spring #${MYSQL_USER}
-      MYSQL_PASSWORD: "" #${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: spring
+      MYSQL_PASSWORD: ""
     ports:
-      - "3307:3306" 
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "localhost",
-          "-u",
-          "root",
-          "-p${MYSQL_ROOT_PASSWORD}"
-        ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -42,8 +32,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_autorizacion
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -63,8 +53,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_comentario
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -83,8 +73,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_disponibilidad
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -103,8 +93,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_habitacion
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -123,8 +113,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_hotel
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -143,8 +133,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_huesped
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -163,8 +153,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_pago
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -183,8 +173,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_reserva
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -203,8 +193,8 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_servicioextra
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
@@ -223,14 +213,14 @@
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: db_hotel_tarifa
-      DB_USER: root #${MYSQL_USER}
-      DB_PASS: "" #${MYSQL_PASSWORD}
+      DB_USER: root
+      DB_PASS: ""
     depends_on:
       mysql:
         condition: service_started
     networks:
       - spring-cloud-net
-  
+
   api-gateway:
     build:
       context: ./api-gateway
