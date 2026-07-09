@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import cl.duocuc.dsy1103.habitacion.Model.Habitacion;
 import java.util.List;
 
-// CORRECCIÓN: Agregamos la anotación oficial para la capa de acceso a datos
 @Repository
 
 
